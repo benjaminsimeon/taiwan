@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Countdown bis 31. Oktober</title>
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      display: grid;
+      place-items: center;
+      background-color: #000;
+      color: #fff;
+      font-family: Arial, Helvetica, sans-serif;
+      text-align: center;
+    }
+    #countdown {
+      font-size: 3rem;
+      letter-spacing: 0.05em;
+    }
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <div>
+    <h1>Countdown bis 31. Oktober</h1>
+    <div id="countdown"></div>
+  </div>
+
+  <script>
+    // Ziel-Datum: 31. Oktober 2025, 08:45 Uhr in Taipeh-Zeit
+    const taipeiOffset = 8 * 60; // UTC+8 in Minuten
+    const targetDateUTC = Date.UTC(2025, 9, 31, 0, 45); // 08:45 Taipeh-Zeit = 00:45 UTC
+
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const diff = targetDateUTC - now;
+
+      if (diff <= 0) {
+        document.getElementById('countdown').innerHTML = '🎉 Heute ist der 31. Oktober!';
+        clearInterval(timer);
+        return;
+      }
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+      document.getElementById('countdown').innerHTML =
+        `${days}d ${hours}h ${minutes}m ${seconds}s`;
+    }
+
+    const timer = setInterval(updateCountdown, 1000);
+    updateCountdown();
+  </script>
+</body>
+</html>
